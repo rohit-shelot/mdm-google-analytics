@@ -34,7 +34,7 @@ export default function App() {
     <>
       <PageTracker />
       <Toaster
-        position="top-right"
+        position="bottom-right"
         toastOptions={{
           className: 'custom-toast',
           style: {
