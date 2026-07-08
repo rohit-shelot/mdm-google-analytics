@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { ArrowRight, Gamepad2, Cpu, Keyboard, Mouse, Disc, Zap, Shield, Truck } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
+import { trackViewPromotion, trackSelectPromotion } from '../lib/analytics';
 
 const CATEGORIES = [
   { id: 'console', name: 'Consoles', icon: '🎮', color: '#6c63ff', bg: 'rgba(108,99,255,0.12)' },
@@ -32,6 +33,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    trackViewPromotion('hero_banner_2026', 'New Arrivals 2026 Hero Banner');
     const fetch = async () => {
       const { data } = await supabase
         .from('products')
@@ -73,7 +75,12 @@ export default function Home() {
               Discover the latest PlayStation 5 discs, AAA games, mechanical keyboards, and pro-grade mice. Everything a gamer needs — in one place.
             </p>
             <div className="hero-cta">
-              <Link to="/products" className="btn btn-primary btn-lg" id="hero-shop-btn">
+              <Link
+                to="/products"
+                className="btn btn-primary btn-lg"
+                id="hero-shop-btn"
+                onClick={() => trackSelectPromotion('hero_banner_2026', 'New Arrivals 2026 Hero Banner')}
+              >
                 Shop Now <ArrowRight size={18} />
               </Link>
               <Link to="/products?category=console" className="btn btn-outline btn-lg" id="hero-consoles-btn">

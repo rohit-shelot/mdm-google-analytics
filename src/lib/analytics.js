@@ -142,3 +142,39 @@ export const trackLogin = (method = 'email') => {
 export const trackSignUp = (method = 'email') => {
   ReactGA.event('sign_up', { method });
 };
+
+export const setGAUser = (userId, role = 'customer') => {
+  if (userId) {
+    ReactGA.set({ userId: String(userId) });
+    // Track user-level properties (dimensions)
+    ReactGA.set({ user_properties: { user_role: role } });
+    console.log('👤 GA4 User Set:', userId, 'Role:', role);
+  }
+};
+
+export const trackException = (description, fatal = false) => {
+  ReactGA.event('exception', {
+    description: String(description),
+    fatal: Boolean(fatal)
+  });
+};
+
+export const trackViewPromotion = (promoId, promoName, creativeName = 'Banner') => {
+  ReactGA.event('view_promotion', {
+    promotions: [{
+      promotion_id: String(promoId),
+      promotion_name: String(promoName),
+      creative_name: String(creativeName)
+    }]
+  });
+};
+
+export const trackSelectPromotion = (promoId, promoName, creativeName = 'Banner') => {
+  ReactGA.event('select_promotion', {
+    promotions: [{
+      promotion_id: String(promoId),
+      promotion_name: String(promoName),
+      creative_name: String(creativeName)
+    }]
+  });
+};
