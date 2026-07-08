@@ -17,7 +17,7 @@ export const trackEvent = (category, action, label = '', value = 0) => {
 
 export const trackViewItem = (product) => {
   ReactGA.event('view_item', {
-    currency: 'USD',
+    currency: 'INR',
     value: parseFloat(product.price),
     items: [{
       item_id: String(product.id),
@@ -31,7 +31,7 @@ export const trackViewItem = (product) => {
 
 export const trackAddToCart = (product, quantity = 1) => {
   ReactGA.event('add_to_cart', {
-    currency: 'USD',
+    currency: 'INR',
     value: parseFloat(product.price) * quantity,
     items: [{
       item_id: String(product.id),
@@ -45,7 +45,7 @@ export const trackAddToCart = (product, quantity = 1) => {
 
 export const trackRemoveFromCart = (product, quantity = 1) => {
   ReactGA.event('remove_from_cart', {
-    currency: 'USD',
+    currency: 'INR',
     value: parseFloat(product.price) * quantity,
     items: [{
       item_id: String(product.id),
@@ -59,7 +59,7 @@ export const trackRemoveFromCart = (product, quantity = 1) => {
 
 export const trackViewCart = (items, total) => {
   ReactGA.event('view_cart', {
-    currency: 'USD',
+    currency: 'INR',
     value: parseFloat(total),
     items: items.map((item, idx) => ({
       item_id: String(item.product_id),
@@ -74,7 +74,7 @@ export const trackViewCart = (items, total) => {
 
 export const trackBeginCheckout = (items, total) => {
   ReactGA.event('begin_checkout', {
-    currency: 'USD',
+    currency: 'INR',
     value: parseFloat(total),
     items: items.map((item, idx) => ({
       item_id: String(item.id || item.product_id),
@@ -90,7 +90,7 @@ export const trackBeginCheckout = (items, total) => {
 export const trackPurchase = (orderId, items, total) => {
   ReactGA.event('purchase', {
     transaction_id: String(orderId),
-    currency: 'USD',
+    currency: 'INR',
     value: parseFloat(total),
     items: items.map((item, idx) => ({
       item_id: String(item.product_id || item.id),
