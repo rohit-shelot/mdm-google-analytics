@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
-import { trackPageView } from '../lib/analytics';
+import { trackPageView, trackViewItemList, trackSearch } from '../lib/analytics';
 
 const CATEGORIES = [
   { value: '', label: 'All Categories' },
@@ -46,11 +46,25 @@ export default function Products() {
       query = query.order(sortField, { ascending: dir === 'asc' });
 
       const { data } = await query;
-      setProducts(data || []);
+      const loadedProducts = data || [];
+      setProducts(loadedProducts);
       setLoading(false);
+      
+      if (loadedProducts.length > 0) {
+        trackViewItemList(loadedProducts, category ? `Category: ${category}` : 'All Products');
+      }
     };
     fetchProducts();
   }, [category, search, sort]);
+
+  useEffect(() => {
+    if (search.trim().length > 2) {
+      const delayDebounceFn = setTimeout(() => {
+        trackSearch(search);
+      }, 1000);
+      return () => clearTimeout(delayDebounceFn);
+    }
+  }, [search]);
 
   return (
     <div className="page-wrapper">

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from './AuthContext';
-import { trackAddToCart } from '../lib/analytics';
+import { trackAddToCart, trackRemoveFromCart, trackViewCart } from '../lib/analytics';
 import toast from 'react-hot-toast';
 
 const CartContext = createContext(null);
@@ -21,6 +21,12 @@ export const CartProvider = ({ children }) => {
   };
 
   useEffect(() => { loadCart(); }, [user]);
+
+  useEffect(() => {
+    if (cartOpen && cartItems.length > 0) {
+      trackViewCart(cartItems, cartTotal);
+    }
+  }, [cartOpen]);
 
   const addToCart = async (product, quantity = 1) => {
     if (!user) { toast.error('Please log in to add items to cart'); return; }
@@ -43,12 +49,24 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = async (itemId) => {
+    const item = cartItems.find(i => i.id === itemId);
+    if (item && item.products) {
+      trackRemoveFromCart(item.products, item.quantity);
+    }
     await supabase.from('cart_items').delete().eq('id', itemId);
     loadCart();
   };
 
   const updateQuantity = async (itemId, quantity) => {
+    const item = cartItems.find(i => i.id === itemId);
     if (quantity < 1) { removeFromCart(itemId); return; }
+    if (item && item.products) {
+      if (quantity < item.quantity) {
+        trackRemoveFromCart(item.products, 1);
+      } else {
+        trackAddToCart(item.products, 1);
+      }
+    }
     await supabase.from('cart_items').update({ quantity }).eq('id', itemId);
     loadCart();
   };

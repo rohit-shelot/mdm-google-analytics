@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ShoppingCart, Eye, Star } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { trackSelectItem } from '../lib/analytics';
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
@@ -31,6 +32,7 @@ export default function ProductCard({ product }) {
             to={`/products/${product.id}`}
             className="btn btn-secondary btn-sm"
             id={`view-product-${product.id}`}
+            onClick={() => trackSelectItem(product)}
           >
             <Eye size={14} /> View
           </Link>
