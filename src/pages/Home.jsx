@@ -62,38 +62,66 @@ export default function Home() {
         <div className="hero-glow-circle" />
 
         <div className="container">
-          <div className="hero-content fade-in">
-            <div className="hero-tag">
-              <span className="hero-tag-dot" />
-              New Arrivals 2026
+          <div className="hero-grid">
+            <div className="hero-content fade-in">
+              <div className="hero-tag">
+                <span className="hero-tag-dot" />
+                New Arrivals 2026
+              </div>
+              <h1 className="hero-title">
+                Elevate Your<br />
+                <span>Gaming Experience</span>
+              </h1>
+              <p className="hero-desc">
+                Discover the latest PlayStation 5 discs, AAA games, mechanical keyboards, and pro-grade mice. Everything a gamer needs — in one place.
+              </p>
+              <div className="hero-cta">
+                <Link
+                  to="/products"
+                  className="btn btn-primary btn-lg"
+                  id="hero-shop-btn"
+                  onClick={() => trackSelectPromotion('hero_banner_2026', 'New Arrivals 2026 Hero Banner')}
+                >
+                  Shop Now <ArrowRight size={18} />
+                </Link>
+                <Link to="/products?category=console" className="btn btn-outline btn-lg" id="hero-consoles-btn">
+                  <Gamepad2 size={18} /> Consoles
+                </Link>
+              </div>
+              <div className="hero-stats">
+                {[['500+', 'Products'], ['50K+', 'Gamers'], ['4.9★', 'Rating'], ['24/7', 'Support']].map(([val, lbl]) => (
+                  <div key={lbl}>
+                    <div className="hero-stat-value">{val}</div>
+                    <div className="hero-stat-label">{lbl}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <h1 className="hero-title">
-              Elevate Your<br />
-              <span>Gaming Experience</span>
-            </h1>
-            <p className="hero-desc">
-              Discover the latest PlayStation 5 discs, AAA games, mechanical keyboards, and pro-grade mice. Everything a gamer needs — in one place.
-            </p>
-            <div className="hero-cta">
-              <Link
-                to="/products"
-                className="btn btn-primary btn-lg"
-                id="hero-shop-btn"
-                onClick={() => trackSelectPromotion('hero_banner_2026', 'New Arrivals 2026 Hero Banner')}
-              >
-                Shop Now <ArrowRight size={18} />
-              </Link>
-              <Link to="/products?category=console" className="btn btn-outline btn-lg" id="hero-consoles-btn">
-                <Gamepad2 size={18} /> Consoles
-              </Link>
-            </div>
-            <div className="hero-stats">
-              {[['500+', 'Products'], ['50K+', 'Gamers'], ['4.9★', 'Rating'], ['24/7', 'Support']].map(([val, lbl]) => (
-                <div key={lbl}>
-                  <div className="hero-stat-value">{val}</div>
-                  <div className="hero-stat-label">{lbl}</div>
+
+            <div className="hero-visual fade-in" style={{ animationDelay: '0.2s' }}>
+              <div className="hero-visual-container">
+                <div className="hero-badge-floating c1">
+                  <div className="hero-badge-icon" style={{ background: 'rgba(108, 99, 255, 0.12)', color: '#6c63ff' }}>🎮</div>
+                  <div>
+                    <p className="hero-badge-text">PS5 Console</p>
+                    <p className="hero-badge-sub">Next-Gen Disc Edition</p>
+                  </div>
                 </div>
-              ))}
+                <div className="hero-badge-floating c2">
+                  <div className="hero-badge-icon" style={{ background: 'rgba(0, 212, 255, 0.12)', color: '#00d4ff' }}>💿</div>
+                  <div>
+                    <p className="hero-badge-text">God of War</p>
+                    <p className="hero-badge-sub">AAA Best Seller</p>
+                  </div>
+                </div>
+                <div className="hero-badge-floating c3">
+                  <div className="hero-badge-icon" style={{ background: 'rgba(0, 255, 136, 0.12)', color: '#00ff88' }}>⌨️</div>
+                  <div>
+                    <p className="hero-badge-text">Pro Keyboard</p>
+                    <p className="hero-badge-sub">Mechanical RGB Blue</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
