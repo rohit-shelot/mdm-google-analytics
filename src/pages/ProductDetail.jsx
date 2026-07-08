@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ShoppingCart, ArrowLeft, Star, Shield, Truck, RotateCcw, Plus, Minus } from 'lucide-react';
 import { supabase } from '../lib/supabase';
@@ -12,6 +12,26 @@ export default function ProductDetail() {
   const [loading, setLoading] = useState(true);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
+  const [imgStyle, setImgStyle] = useState({});
+  const imgRef = useRef(null);
+
+  // Scroll-linked fade: image gently fades and lifts as user scrolls
+  useEffect(() => {
+    const onScroll = () => {
+      if (!imgRef.current) return;
+      const rect = imgRef.current.getBoundingClientRect();
+      const windowH = window.innerHeight;
+      // Start fading when top of image is above 60% of viewport
+      const progress = Math.max(0, Math.min(1, (windowH * 0.6 - rect.top) / (windowH * 0.4)));
+      setImgStyle({
+        opacity: 1 - progress * 0.85,
+        transform: `translateY(${-progress * 30}px) scale(${1 - progress * 0.03})`,
+        transition: 'opacity 0.05s linear, transform 0.05s linear',
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     const fetch = async () => {
@@ -52,10 +72,11 @@ export default function ProductDetail() {
 
         <div className="product-detail-grid">
           {/* Image */}
-          <div className="product-detail-image-wrapper">
+          <div className="product-detail-image-wrapper" ref={imgRef}>
             <img
               src={product.image_url || `https://picsum.photos/seed/${product.id}/600/600`}
               alt={product.name}
+              style={imgStyle}
             />
           </div>
 
