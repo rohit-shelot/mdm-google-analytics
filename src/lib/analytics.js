@@ -3,6 +3,7 @@ import ReactGA from 'react-ga4';
 const GA_ID = import.meta.env.VITE_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX';
 
 export const initGA = () => {
+  console.log('📊 Initializing GA4 with ID:', GA_ID);
   ReactGA.initialize(GA_ID);
 };
 
