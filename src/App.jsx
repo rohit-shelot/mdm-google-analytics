@@ -30,10 +30,19 @@ function PageTracker() {
   return null;
 }
 
+function ScrollToTop() {
+  const { pathname, search } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname, search]);
+  return null;
+}
+
 export default function App() {
   return (
     <>
       <PageTracker />
+      <ScrollToTop />
       <Toaster
         position="bottom-right"
         toastOptions={{

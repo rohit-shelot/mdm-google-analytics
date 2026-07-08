@@ -111,7 +111,7 @@ export default function Navbar() {
       </div>
 
       {menuOpen && (
-        <div style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)', padding: '16px 24px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <div className="nav-menu-mobile" id="mobile-menu-drawer">
           {navLinks.map(link => (
             <Link key={link.to} to={link.to} className="nav-link" onClick={() => setMenuOpen(false)}>
               {link.label}
