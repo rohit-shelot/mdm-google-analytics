@@ -79,11 +79,7 @@ export default function Login() {
           </button>
         </form>
 
-        <div className="auth-divider">or</div>
 
-        <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-sm)', padding: '14px 16px', fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-          💡 <strong style={{ color: 'var(--text-primary)' }}>Admin access:</strong> After registering, set your role to <code style={{ background: 'var(--bg-card)', padding: '2px 6px', borderRadius: 4 }}>admin</code> in the Supabase profiles table to unlock the admin panel.
-        </div>
 
         <div className="auth-link">
           Don't have an account? <Link to="/register">Sign up</Link>
